@@ -5,11 +5,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get()
   async getUser() {
-    const user = this.userService.findOne("pvthanh98it@gmail.com");
-    return user;
+    return this.userService.findAll();
   }
 
   @Post()

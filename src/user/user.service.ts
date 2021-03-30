@@ -14,7 +14,7 @@ export class UserService {
     return this.usersRepository.findOne({ email: email });
   }
   findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.usersRepository.find({select:["email","id","typeAccount","name"]});
   }
 
   async createUser(userBody: CreateUserDto): Promise<User> {
