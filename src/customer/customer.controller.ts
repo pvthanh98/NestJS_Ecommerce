@@ -42,6 +42,7 @@ export class CustomerController {
     return this.customerService.updateCustomer(customerInfo);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('id/:id')
   findUserById(@Param() params) {
     return this.customerService.findCustomerById(params.id);

@@ -16,7 +16,7 @@ export class Product {
   @Column()
   quantity: number;
 
-  @Column({length:100})
+  @Column({length:200})
   thumbnail: string;
   
   @OneToMany(()=>BillDetail, billDetail=>billDetail.product)

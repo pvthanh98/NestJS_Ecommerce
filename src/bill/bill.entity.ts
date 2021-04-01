@@ -30,9 +30,13 @@ export class Bill {
     @Column({length:20})
     deliveryPhoneNumber: string;
 
+    @Column()
+    customerId: number;
     @ManyToOne(()=>Customer, customer => customer.bills)
     customer:Customer;
 
+    @Column()
+    userId: number;
     @ManyToOne(()=>User, user=> user.bills)
     user:User;
 

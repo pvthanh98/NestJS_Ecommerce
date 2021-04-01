@@ -10,9 +10,11 @@ export class Image {
     @Column({length:100})
     url: string;
 
-    @Column({length:50})
-    publicId: string;
+    @Column()
+    publicId: number;
 
+    @Column()
+    productId: number;
     @ManyToOne(()=>Product, product => product.images)
     product:Product;
 }

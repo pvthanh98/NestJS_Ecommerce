@@ -16,6 +16,9 @@ export class User {
   @Column({ length: 100 })
   password: string;
 
+  @Column({length:25})
+  phoneNumber: string;
+
   @Column()
   typeAccount: number
 

@@ -8,9 +8,13 @@ export class BillDetail {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    billId : number;
     @ManyToOne (()=>Bill, bill => bill.billDetails)
     bill:Bill;
 
+    @Column()
+    productId: number;
     @ManyToOne(()=>Product, product => product.billDetails)
     product:Product;
 

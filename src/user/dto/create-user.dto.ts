@@ -1,4 +1,4 @@
-import {IsString, IsEmail, MinLength, IsNumber} from 'class-validator';
+import {IsString, IsEmail, MinLength, IsNumber, IsPhoneNumber} from 'class-validator';
 export class CreateUserDto {
     @IsString()
     name: string;
@@ -12,6 +12,9 @@ export class CreateUserDto {
 
     @IsNumber()
     typeAccount: number;
+
+    @IsPhoneNumber()
+    phoneNumber: string;
     
     salt: string;
 }

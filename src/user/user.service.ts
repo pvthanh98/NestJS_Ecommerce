@@ -6,9 +6,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import { CreateUserDto } from './createUser.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
-import { UpdateUserDto } from './dto/updateUser.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserService {
   constructor(
@@ -20,18 +20,18 @@ export class UserService {
   }
   findAll(): Promise<User[]> {
     return this.usersRepository.find({
-      select: ['email', 'id', 'typeAccount', 'name'],
+      select: ['email', 'id', 'typeAccount', 'name', 'phoneNumber'],
     });
   }
 
-  async createUser(userBody: CreateUserDto): Promise<{ message: string }> {
+  async createUser(userBody: CreateUserDto): Promise<any> {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(userBody.password, salt);
     userBody.salt = salt;
     userBody.password = hash;
     try {
-      await this.usersRepository.save(userBody);
-      return { message: 'ok' };
+      const {password, salt, ...result} =  await this.usersRepository.save(userBody);
+      return result;
     } catch (e) {
       throw new NotImplementedException({
         code: e.code,
@@ -49,6 +49,7 @@ export class UserService {
     if (userFind) {
       userFind.name = user.name;
       userFind.typeAccount = user.typeAccount; 
+      userFind.phoneNumber = user.phoneNumber;
       const {password , salt, ...result} = await this.usersRepository.save(userFind);
       return result;
     } else

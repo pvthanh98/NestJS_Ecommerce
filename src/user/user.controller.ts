@@ -1,10 +1,9 @@
 import { Body, Controller, Get, Post, UseGuards, Delete, Put, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './createUser.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { IdObjectDto } from './dto/idbody.dto';
-import {UpdateUserDto} from './dto/updateUser.dto';
-import { TestDto } from "./dto/test.dto";
+import { DeleteUserDto } from './dto/delete-user.dto';
+import {UpdateUserDto} from './dto/update-user.dto';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
@@ -22,20 +21,14 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Delete()
-  deleteUser (@Body() userId: IdObjectDto){
+  deleteUser (@Body(ValidationPipe) userId: DeleteUserDto){
     return this.userService.deleteUser(userId.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Put()
-  updateUser (@Body() user: UpdateUserDto) {
+  updateUser (@Body(ValidationPipe) user: UpdateUserDto) {
     return this.userService.updateUser(user);
-  }
-
-  @Post("test")
-  test(@Body(ValidationPipe) hello: TestDto) {
-    console.log(hello)
-    return "ok"
   }
   
 }

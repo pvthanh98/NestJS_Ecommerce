@@ -1,8 +1,9 @@
 import { Address } from '../address/address.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, Unique } from 'typeorm';
 import { Bill } from 'src/bill/bill.entity';
 
 @Entity()
+@Unique(["email"])
 export class Customer {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,9 +16,6 @@ export class Customer {
 
   @Column({length:20})
   phoneNumber: string;
-
-  @Column({length:45})
-  password: string;
   
   @Column({length:45})
   salt: string;

@@ -4,7 +4,6 @@ import {
   NotFoundException,
   NotImplementedException,
 } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './customer.entity';
@@ -20,12 +19,7 @@ export class CustomerService {
 
   async insertCustomer(customer: CreateCustomerDto): Promise<any> {
     try {
-      const salt = await bcrypt.genSalt();
-      const hash = await bcrypt.hash(customer.password, salt);
-      customer.salt = salt;
-      customer.password = hash;
-      await this.customerRepository.save(customer);
-      return { message: 'ok' };
+      return await this.customerRepository.save(customer);
     } catch (e) {
       throw new NotImplementedException({
         code: 'NOT_IMPLEMENTED_EXCEPTION',
@@ -67,10 +61,9 @@ export class CustomerService {
     customer.phoneNumber = customerInfo.phoneNumber;
 
     try {
-      const { password, salt, ...result } = await this.customerRepository.save(
+      return  await this.customerRepository.save(
         customer,
       );
-      return result;
     } catch (e) {
       catchError(e);
     }

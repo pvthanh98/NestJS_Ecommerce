@@ -6,12 +6,7 @@ export class CreateCustomerDto {
     @IsEmail()
     email: string;
 
-    @IsString()
-    @MinLength(8)
-    password:string;
-
     @IsPhoneNumber()
     phoneNumber:string;
 
-    salt: string;
 }
