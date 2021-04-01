@@ -12,9 +12,7 @@ export class AuthService {
     const user = await this.userService.findOne(email);
     if (user) {
       const { password, salt, ...result } = user;
-
       const comparedPass = await bcrypt.hash(pass, salt);
-      console.log({ user, comparedPass });
       if (comparedPass === password) return result;
     }
     return null;

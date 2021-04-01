@@ -1,7 +1,8 @@
 import { Bill } from 'src/bill/bill.entity';
 import { UserPermission } from 'src/user-permission/user-permission.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Unique } from 'typeorm';
 @Entity()
+@Unique(["email"])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

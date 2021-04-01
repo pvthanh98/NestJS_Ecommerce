@@ -11,6 +11,9 @@ export class District {
     @Column({length:45})
     name: string;
 
+    @Column ()
+    cityId: number;
+
     @ManyToOne(() => City, city => city.districts)
     city: City;
 

@@ -11,6 +11,9 @@ export class Ward {
     @Column({length:45})
     name: string;
 
+    @Column()
+    districtId: number;
+
     @ManyToOne(() => District, district => district.wards)
     district: District;
 
